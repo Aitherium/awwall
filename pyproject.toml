@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "awwall"
+version = "0.1.0"
+description = "Egress allowlist that fails closed: declare what a workload may reach, watch everything else fail with the rule that denied it."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Aither World", email = "dev@aitherium.com"}]
+license = {text = "MIT"}
+
+[project.scripts]
+awwall = "awwall.cli:main"
+
+[tool.setuptools.packages]
+find = {}
