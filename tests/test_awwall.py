@@ -1,12 +1,8 @@
 """Test suite for awwall."""
 
-import json
-import tempfile
-from pathlib import Path
-
 import pytest
+from awwall import AllowRule, Policy
 
-from awwall import Policy, AllowRule
 
 class TestAllowRule:
     """Test AllowRule creation."""

@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from awwall import Policy, AllowRule
+from awwall import AllowRule, Policy
 
 DEFAULT_POLICY_FILE = Path.home() / ".awwall" / "policy.json"
 
@@ -223,12 +223,21 @@ def cmd_self_test(args):
 
 def main():
     """Main CLI entry point."""
+    # GENERATED doctor intercept (gen_aw_doctor.py) -- do not edit
+    _dv = locals().get("argv")
+    if (_dv if _dv is not None else __import__("sys").argv[1:])[:1] == ["doctor"]:
+        from ._doctor import report
+        return report()
     parser = argparse.ArgumentParser(
         prog='awwall',
-        description='Egress allowlist that fails closed: declare what a workload may reach, watch everything else fail with the rule that denied it.'
+        description='Egress allowlist that fails closed: declare what a workload '
+                    'may reach, watch everything else fail with the rule that '
+                    'denied it.'
     )
 
-    parser.add_argument('--policy-file', type=str, help=f'Policy file (default: {DEFAULT_POLICY_FILE})')
+    parser.add_argument(
+        '--policy-file', type=str,
+        help=f'Policy file (default: {DEFAULT_POLICY_FILE})')
     parser.add_argument('--self-test', action='store_true', help='Run self-tests')
 
     subparsers = parser.add_subparsers(dest='command', help='Command to run')
@@ -236,25 +245,33 @@ def main():
     # allow command
     allow_parser = subparsers.add_parser('allow', help='Add a host to the allowlist')
     allow_parser.add_argument('host', help='Hostname to allow')
-    allow_parser.add_argument('--type', choices=['exact', 'domain', 'glob'], help='Rule type (auto-detect if not specified)')
-    allow_parser.add_argument('--as-domain', action='store_true', help='Treat as domain rule (default for multi-part hosts)')
+    allow_parser.add_argument(
+        '--type', choices=['exact', 'domain', 'glob'],
+        help='Rule type (auto-detect if not specified)')
+    allow_parser.add_argument(
+        '--as-domain', action='store_true',
+        help='Treat as domain rule (default for multi-part hosts)')
     allow_parser.add_argument('--description', help='Rule description')
     allow_parser.set_defaults(func=cmd_allow)
 
     # check command
     check_parser = subparsers.add_parser('check', help='Check if a host is allowed')
     check_parser.add_argument('host', help='Hostname to check')
-    check_parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    check_parser.add_argument(
+        '-v', '--verbose', action='store_true', help='Verbose output')
     check_parser.set_defaults(func=cmd_check)
 
     # explain command
-    explain_parser = subparsers.add_parser('explain', help='Explain why a host is allowed or denied')
+    explain_parser = subparsers.add_parser(
+        'explain', help='Explain why a host is allowed or denied')
     explain_parser.add_argument('host', help='Hostname to explain')
     explain_parser.set_defaults(func=cmd_explain)
 
     # emit command
     emit_parser = subparsers.add_parser('emit', help='Emit policy in different formats')
-    emit_parser.add_argument('--format', choices=['hosts', 'iptables', 'json'], default='json', help='Output format')
+    emit_parser.add_argument(
+        '--format', choices=['hosts', 'iptables', 'json'],
+        default='json', help='Output format')
     emit_parser.add_argument('--output', help='Output file (default: stdout)')
     emit_parser.set_defaults(func=cmd_emit)
 

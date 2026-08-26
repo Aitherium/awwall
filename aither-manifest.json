@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1",
+  "name": "awwall",
+  "description": "Say what a workload may reach, and watch everything else fail closed.",
+  "url": "https://aitherium.github.io/awwall/",
+  "repository": "https://github.com/Aitherium/awwall",
+  "kind": "tool",
+  "status": "unpublished",
+  "adopt": "Block one outbound host for one workload and watch the call fail closed with the rule that denied it.",
+  "pairs_with": [
+    "awiam",
+    "awbac",
+    "awnest",
+    "awnboard",
+    "awdit",
+    "awnet",
+    "awtunnel",
+    "awnode",
+    "awdk"
+  ],
+  "includes": []
+}
