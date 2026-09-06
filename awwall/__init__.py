@@ -1,8 +1,9 @@
 """awwall: egress allowlist that fails closed."""
 
+import json
 import re
-from typing import NamedTuple, Optional
-
+from pathlib import Path
+from typing import Optional, NamedTuple
 
 class AllowRule(NamedTuple):
     pattern: str
