@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "awwall"
-version = "0.1.0"
+version = "0.1.1"
 description = "Egress allowlist that fails closed: declare what a workload may reach, watch everything else fail with the rule that denied it."
 readme = "README.md"
 requires-python = ">=3.10"

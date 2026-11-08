@@ -35,6 +35,20 @@ class Policy:
             rules.append(AllowRule(pattern, rule_type, description))
         return cls(rules)
 
+    @classmethod
+    def load_default(cls, path=None):
+        """The policy at ``path`` or ``~/.awwall/policy.json`` (the file the CLI writes).
+
+        A missing file is an EMPTY policy, which denies every host: a policy question
+        that cannot be answered must not answer 'yes'. A file that exists but cannot be
+        parsed raises, so a typo never silently opens the wall.
+        """
+        p = Path(path) if path else Path.home() / ".awwall" / "policy.json"
+        if not p.exists():
+            return cls([])
+        with open(p, encoding="utf-8") as f:
+            return cls.from_dict(json.load(f))
+
     def check(self, host):
         host = host.strip().lower()
         for rule in self.rules:
