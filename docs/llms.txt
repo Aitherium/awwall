@@ -10,10 +10,6 @@ Every other gate asks about the CALLER — who they are, what role they hold, wh
 pip install awwall
 ```
 
-## In Claude Code
-
-- skill: `/awwall`
-
 ## Use it in 30 seconds
 
 Block one outbound host for one workload and watch the call fail closed with the rule that denied it.
