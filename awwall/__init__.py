@@ -1,5 +1,7 @@
 """awwall: egress allowlist that fails closed."""
 
+__version__ = "0.1.1"
+
 import json
 import re
 from pathlib import Path

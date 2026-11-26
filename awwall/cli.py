@@ -237,13 +237,16 @@ def main():
         _sv = locals().get("argv")
         if _aw_state.cli_banner(_sv if _sv is not None else __import__("sys").argv[1:]):
             return 0
+    from . import __version__
+
     parser = argparse.ArgumentParser(
         prog='awwall',
         description='Egress allowlist that fails closed: declare what a workload may reach, watch everything else fail with the rule that denied it.'
     )
 
+    parser.add_argument('--version', action='version', version=f'awwall {__version__}')
     parser.add_argument('--policy-file', type=str, help=f'Policy file (default: {DEFAULT_POLICY_FILE})')
-    parser.add_argument('--self-test', action='store_true', help='Run self-tests')
+    parser.add_argument('--self-test', '--selftest', dest='self_test', action='store_true', help='Run self-tests')
 
     subparsers = parser.add_subparsers(dest='command', help='Command to run')
 
